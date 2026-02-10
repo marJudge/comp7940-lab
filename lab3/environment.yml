@@ -1,0 +1,11 @@
+name: 7940-lab3
+channels:
+  - defaults
+dependencies:
+  - python>=3.10
+  - pip
+  - pip:
+    - configparser
+    - python-telegram-bot==22.5
+    - urllib3==2.6.2
+    - requests
