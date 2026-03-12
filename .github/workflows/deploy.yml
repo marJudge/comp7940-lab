@@ -20,10 +20,10 @@ jobs:
 
       - name: Deploy application
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'bash -s' << 'EOF'
+          set -e
           cd ~/chatbot_comp7940
           git fetch origin && git reset --hard origin/main
-          # Restart chatbot inside venv (run from lab3 so config.ini is found)
           pkill -f "python.*chatbot.py" || true
           cd lab3 && nohup ../venv/bin/python chatbot.py > app.log 2>&1 &
           EOF
