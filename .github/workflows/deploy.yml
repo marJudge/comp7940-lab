@@ -20,12 +20,11 @@ jobs:
 
       - name: Deploy application
         run: |
-          timeout 90 ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o ConnectTimeout=15 ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'bash -s' << 'EOF'
+          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o ConnectTimeout=15 ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'bash -s' << 'EOF'
           set -e
           cd ~/chatbot_comp7940
           git fetch origin && git reset --hard origin/main
           pkill -f "python.*chatbot.py" || true
-          ( cd lab3 && nohup ../venv/bin/python chatbot.py > app.log 2>&1 & )
-          disown -a 2>/dev/null || true
+          cd lab3 && setsid nohup ../venv/bin/python chatbot.py > app.log 2>&1 </dev/null &
           exit 0
           EOF
