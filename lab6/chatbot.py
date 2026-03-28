@@ -1,7 +1,3 @@
-'''
-Lab3: 集成 ChatGPT 的 Telegram 聊天机器人。
-依赖: python-telegram-bot==22.5, urllib3, requests
-'''
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters
 from ChatGPT_HKBU import ChatGPT
